@@ -1,4 +1,3 @@
-import "./App.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -49,7 +48,7 @@ function FetchingApi() {
             {todos
               ? todos.map((todo) => {
                   return (
-                    <tr key={todo.id} className="border-b">
+                    <tr key={todo.id} className="border">
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-violet-200">
                         {todo.id}
                       </td>
