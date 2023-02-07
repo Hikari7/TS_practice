@@ -3,13 +3,11 @@ import React, { useEffect, useRef, useState } from "react";
 
 export type datas = {
   id?: number;
-  text: string;
-  animal_type: string;
+  text?: string;
+  animal_type?: string;
+  data?: string;
 };
 
-// type handleRef = {
-//   handleRef: () => void;
-// };
 
 const AnimalApi = () => {
   const [datas, setDatas] = useState<datas[] | null>([]);
@@ -40,28 +38,31 @@ const AnimalApi = () => {
       .get(url)
       .then((data) => setDatas(data.data))
       .catch((err) => console.log(err));
-
-    console.log(datas);
-    return setDatas(datas);
   };
+
+  console.log(datas);
 
   return (
     <div>
       <h3>Get animal info</h3>
-
       <form onSubmit={handleSubmit}>
-        <input type="search" ref={input} onChange={handleRef}></input>
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        <input type="search" ref={input} />
+        <button
+          onClick={handleRef}
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
           Get info
         </button>
       </form>
 
       <ul>
-        {datas
-          ? datas.map((data) => {
-              return <li key={data.id}>{data.text}</li>;
-            })
-          : null}
+        {!!datas ? (
+          datas.map((data) => {
+            return <li key={data.id}>{data.text}</li>;
+          })
+        ) : (
+          <li>no results</li>
+        )}
       </ul>
     </div>
   );
