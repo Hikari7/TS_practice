@@ -22,7 +22,7 @@ const Kawaii = () => {
         <option value="shocked">shocked</option>
         <option value="ko">ko</option>
       </select>
-      {/* <Chocolate mood={mood} /> */}
+      <Chocolate mood={mood} />
     </>
   );
 };
