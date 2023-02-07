@@ -22,7 +22,7 @@ const Search = () => {
 
   return (
     <>
-      <SpeechBubble mood={mood} />
+      {/* <SpeechBubble mood={mood} /> */}
       <form onChange={handleRef}>
         <input type="search" ref={input} />
       </form>
