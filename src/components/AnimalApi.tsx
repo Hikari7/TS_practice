@@ -8,7 +8,6 @@ export type datas = {
   data?: string;
 };
 
-
 const AnimalApi = () => {
   const [datas, setDatas] = useState<datas[] | null>([]);
   const [query, setQuery] = useState<string>("");
@@ -56,7 +55,7 @@ const AnimalApi = () => {
       </form>
 
       <ul>
-        {!!datas ? (
+        {datas?.length !== 0 ? (
           datas.map((data) => {
             return <li key={data.id}>{data.text}</li>;
           })
