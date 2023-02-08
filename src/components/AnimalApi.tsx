@@ -1,5 +1,8 @@
 import axios from "axios";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
+import { Cat } from "react-kawaii";
+import { SadCat, LovestriuckCat } from "./CatMoods";
+import "../App.css";
 
 export type datas = {
   id?: number;
@@ -12,17 +15,28 @@ const AnimalApi = () => {
   const [datas, setDatas] = useState<datas[] | null>([]);
   const [query, setQuery] = useState<string>("");
 
-  const input = useRef<HTMLInputElement | null>(null);
+  //   const { mood, setMood } = useMood()!;
+  const [mood, setMood] = useState<string>("happy");
+
+  const input = useRef<HTMLInputElement>(null);
   const handleRef = () => {
-    //入力された値を取得(Queryを更新)
-    console.log(input.current.value);
-    setQuery(input.current.value);
+    // console.log(input.current.value);
+    //input.current がオブジェクトが持っているか
+    if (input.current) {
+      setQuery(input.current.value);
+      setMood("lovestruck");
+    }
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(query);
-    fetchingData(setQuery);
+
+    fetchingData();
+    if (datas.length == 0 && !datas) {
+      setMood("sad");
+    }
+    //デフォルトでcatのデータが返されるからそりゃあかんわ
+    console.log(datas.length);
   };
 
   const url = `https://cat-fact.herokuapp.com/facts/random?animal_type=${query}&amount=5`;
@@ -31,15 +45,12 @@ const AnimalApi = () => {
     fetchingData();
   }, [query]);
 
-  //この引数にsetQueryいる？
   const fetchingData = () => {
     axios
       .get(url)
       .then((data) => setDatas(data.data))
       .catch((err) => console.log(err));
   };
-
-  console.log(datas);
 
   return (
     <div>
@@ -53,14 +64,17 @@ const AnimalApi = () => {
           Get info
         </button>
       </form>
+      <div className="flex">
+        <Cat mood={mood} />
+      </div>
 
       <ul>
-        {datas?.length !== 0 ? (
+        {datas && datas?.length !== 0 ? (
           datas.map((data) => {
             return <li key={data.id}>{data.text}</li>;
           })
         ) : (
-          <li>no results</li>
+          <h2>No result</h2>
         )}
       </ul>
     </div>

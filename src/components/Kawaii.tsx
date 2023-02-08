@@ -4,9 +4,9 @@ import { Chocolate } from "react-kawaii";
 
 const useMood = () => useContext(MoodContext);
 
-type mood = {
-  mood?: string;
-};
+// type mood = {
+//   mood?: string;
+// };
 
 const Kawaii = () => {
   //!: 100% sure to have a value
@@ -22,7 +22,7 @@ const Kawaii = () => {
         <option value="shocked">shocked</option>
         <option value="ko">ko</option>
       </select>
-      <Chocolate mood={mood} />
+      {/* <Chocolate mood={mood} /> */}
     </>
   );
 };
