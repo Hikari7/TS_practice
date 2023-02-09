@@ -14,7 +14,7 @@ export type datas = {
 
 const AnimalApi = () => {
   const [datas, setDatas] = useState<datas[] | null>([]);
-  const [query, setQuery] = useState<string>("rarara");
+  const [query, setQuery] = useState<string>("chlhlat");
 
   const [mood, setMood] = useState<string>("happy");
 
@@ -22,14 +22,11 @@ const AnimalApi = () => {
   const handleRef = () => {
     if (input.current) {
       setQuery(input.current.value);
-      //   setMood("happy");
+      setMood("lovestruck");
     }
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    fetchingData();
+  const changeMood = () => {
     if (datas && datas?.length !== 0) {
       setMood("lovestruck");
     } else {
@@ -37,17 +34,31 @@ const AnimalApi = () => {
     }
   };
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // changeMood();
+    fetchingData();
+  };
+
   const url = `https://cat-fact.herokuapp.com/facts/random?animal_type=${query}&amount=5`;
   console.log(datas);
 
-  useEffect(() => {
-    fetchingData();
-  }, [query]);
+  // useEffect(() => {
+  //   // fetchingData();
+  //   // changeMood();
+  // }, [query]);
 
   const fetchingData = () => {
     axios
       .get(url)
-      .then((data) => setDatas(data.data))
+      .then((data) => {
+        if (data.data.length !== 0) {
+          setMood("lovestruck");
+        } else {
+          setMood("sad");
+        }
+        setDatas(data.data);
+      })
       .catch((err) => console.log(err));
   };
 
