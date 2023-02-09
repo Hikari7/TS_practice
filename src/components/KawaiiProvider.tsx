@@ -17,9 +17,7 @@ type Props = {
 };
 
 const defaultMood = "lovestruck";
-export const MoodContext = createContext<MoodContextType | undefined>(
-  undefined
-);
+export const MoodContext = createContext<MoodContextType | undefined>("");
 
 const KawaiiProvider = ({ children }: Props) => {
   const [mood, setMood] = useState(defaultMood);

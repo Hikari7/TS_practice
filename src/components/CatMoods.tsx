@@ -14,9 +14,8 @@ const LovestriuckCat = () => {
   return (
     <>
       <Cat mood="lovestruck" />
-    
     </>
   );
 };
 
-export  { SadCat, LovestriuckCat };
+export { SadCat, LovestriuckCat };

@@ -1,8 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useRef, useState, useContext } from "react";
 import { Cat } from "react-kawaii";
-import { SadCat, LovestriuckCat } from "./CatMoods";
+// import { SadCat, LovestriuckCat } from "./CatMoods";
 import "../App.css";
+import { LovestriuckCat, SadCat } from "./CatMoods";
 
 export type datas = {
   id?: number;
@@ -13,18 +14,15 @@ export type datas = {
 
 const AnimalApi = () => {
   const [datas, setDatas] = useState<datas[] | null>([]);
-  const [query, setQuery] = useState<string>("");
+  const [query, setQuery] = useState<string>("rarara");
 
-  //   const { mood, setMood } = useMood()!;
   const [mood, setMood] = useState<string>("happy");
 
   const input = useRef<HTMLInputElement>(null);
   const handleRef = () => {
-    // console.log(input.current.value);
-    //input.current がオブジェクトが持っているか
     if (input.current) {
       setQuery(input.current.value);
-      setMood("lovestruck");
+      //   setMood("happy");
     }
   };
 
@@ -32,14 +30,15 @@ const AnimalApi = () => {
     e.preventDefault();
 
     fetchingData();
-    if (datas.length == 0 && !datas) {
+    if (datas && datas?.length !== 0) {
+      setMood("lovestruck");
+    } else {
       setMood("sad");
     }
-    //デフォルトでcatのデータが返されるからそりゃあかんわ
-    console.log(datas.length);
   };
 
   const url = `https://cat-fact.herokuapp.com/facts/random?animal_type=${query}&amount=5`;
+  console.log(datas);
 
   useEffect(() => {
     fetchingData();
@@ -53,8 +52,8 @@ const AnimalApi = () => {
   };
 
   return (
-    <div>
-      <h3>Get animal info</h3>
+    <div className="container max-w-lg">
+      <h3 className="text-3xl text-red-300">Get animal info</h3>
       <form onSubmit={handleSubmit}>
         <input type="search" ref={input} />
         <button
@@ -64,10 +63,10 @@ const AnimalApi = () => {
           Get info
         </button>
       </form>
-      <div className="flex">
-        <Cat mood={mood} />
+      <div className="justify-center flex">
+        <Cat mood={mood} className="item-center" />
       </div>
-
+      <h2 className="font-bold leading-8 text-red-300 text-lg">Result</h2>
       <ul>
         {datas && datas?.length !== 0 ? (
           datas.map((data) => {
