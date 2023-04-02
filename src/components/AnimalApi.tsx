@@ -75,7 +75,7 @@ const AnimalApi = () => {
         </button>
       </form>
       <div className="justify-center flex">
-        <Cat mood={mood} className="item-center" />
+        {/* <Cat mood={mood} className="item-center" /> */}
       </div>
       <h2 className="font-bold leading-8 text-red-300 text-lg">Result</h2>
       <ul>
